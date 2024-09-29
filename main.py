@@ -6,6 +6,7 @@ import sys
 from motor.motor_asyncio import AsyncIOMotorClient
 from motor.core import AgnosticDatabase as MDB
 
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -13,15 +14,16 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
-
+from command.start import router
 
 
 async def main() -> None:
     bot = Bot(token=os.getenv('TOKEN'), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     await bot.delete_webhook(drop_pending_updates=True)
     cluster = AsyncIOMotorClient(host="localhost", port=27017)
-    db = cluster.gamebotdb
+    db = cluster.gamedb
     dp = Dispatcher()
+    dp.include_routers(router)
     await dp.start_polling(bot, db=db)
 
 
