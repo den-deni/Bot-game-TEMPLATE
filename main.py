@@ -4,7 +4,6 @@ import os
 import sys
 
 from motor.motor_asyncio import AsyncIOMotorClient
-from motor.core import AgnosticDatabase as MDB
 
 
 from dotenv import load_dotenv
@@ -15,6 +14,11 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 from command.start import router
+from handlers.navigation import navigation_router
+from handlers.game_handler import game_router
+from handlers.youtube_hanler import yt_router
+from handlers.points_handler import points_router
+
 
 
 async def main() -> None:
@@ -23,7 +27,7 @@ async def main() -> None:
     cluster = AsyncIOMotorClient(host="localhost", port=27017)
     db = cluster.gamedb
     dp = Dispatcher()
-    dp.include_routers(router)
+    dp.include_routers(router, navigation_router, game_router, yt_router, points_router)
     await dp.start_polling(bot, db=db)
 
 
