@@ -30,9 +30,9 @@ async def get_profile(call: CallbackQuery, db: MDB):
 
 @navigation_router.callback_query(F.data == 'game')
 async def get_profile(call: CallbackQuery):
-    await call.message.edit_reply_markup(reply_markup=builder_keyboard(
-        text=["Black_Jack🃏", "Dice🎲", "BitCoin💸", "Назад в меню⬅️"],
-        callback=["blackjack", "dice", "bitcoin", "back"],
+    await call.message.edit_text(text=f"{hbold('Меню ігри')}", reply_markup=builder_keyboard(
+        text=["Black_Jack🃏", "Dice🎲", "BitCoin💸", "Таймер⏱️", "Назад в меню⬅️"],
+        callback=["blackjack", "dice", "bitcoin", "timer", "back"],
         sizes=2
     )
 )
@@ -88,8 +88,8 @@ async def get_shop(call: CallbackQuery):
     await call.message.edit_text(text=f"{hbold('Вітаю в BotShop')}\n"
                                       f"{hbold('Тут ти можеш витратити свої 💎')}\n"
                                       f"{hbold('Вибери що потрібно 👇')}", reply_markup=builder_keyboard(
-                                        ['Youtube/audio', 'Youtube/video', 'Назад⬅️'],
-                                        ['audio', 'video', 'back'],
+                                        ['Youtube/audio', 'Youtube/video', 'Insta/pic', 'Назад⬅️'],
+                                        ['audio', 'video', 'insta', 'back'],
                                         sizes=1
                                     )
                                 )
@@ -101,19 +101,14 @@ async def get_support(call: CallbackQuery):
                                       f"{hbold('Зібрані поінти можна обміняти на діаманти — внутрішню валюту бота')}\n"
                                       f"{hbold('Користувач може використовувати діаманти для завантаження потрібного контенту з YouTube або Instagram')}\n"
                                       f"{hbold('Чим більше виграє користувач, тим більше контенту він зможе завантажити.')}\n"
-                                      f"{hbold('Виникли питання або замітив баг пиши')}👇\n"
-                                      f"{hlink(title='SupportBot', url='https://t.me/su_rwx')}\n", reply_markup=InlineKeyboardMarkup(
+                                      f"{hbold('Виникли питання або побачив баг пиши')}👇\n"
+                                      f"{hlink(title='SupportBot', url='https://t.me/su_rwx')}\n"
+                                      f"{hbold('P.S: За інфо бонус 💎')}", reply_markup=InlineKeyboardMarkup(
                                           inline_keyboard=[
                                               [
-                                                  InlineKeyboardButton(text='Зрозуміло ✔️', callback_data='delite')
+                                                  InlineKeyboardButton(text='Зрозуміло ✔️', callback_data='back')
                                               ]
                                           ]
                                       )
                                     )
     
-# кнопка удаления
-
-@navigation_router.callback_query(F.data == 'delite')
-async def get_delite(call: CallbackQuery, bot: Bot):
-    await bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
-    await call.answer()

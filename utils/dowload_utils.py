@@ -1,4 +1,5 @@
 from pytubefix import YouTube
+import instaloader
 
 
 def load_audio(url):
@@ -20,3 +21,16 @@ def load_video(url):
            return stream
       except Exception:
             return f"Зараз завантаження не доступно спробуй пізніше"
+      
+
+def load_insta_pic(prof):
+      try:
+            pic_loader = instaloader.Instaloader(dirname_pattern='static/instapic')
+            prof = prof
+            pic = pic_loader.download_profile(profile_name=prof, profile_pic_only=True)
+            return pic
+      except Exception:
+            return f"Зараз завантаження не доступно спробуй пізніше"
+      
+# a = load_insta_pic(prof='tumoschuk_officiall')
+# print(a)

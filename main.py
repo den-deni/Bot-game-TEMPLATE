@@ -18,6 +18,8 @@ from handlers.navigation import navigation_router
 from handlers.game_handler import game_router
 from handlers.youtube_hanler import yt_router
 from handlers.points_handler import points_router
+from handlers.time_handler import time_router
+from handlers.instagram_handler import insta_router
 
 
 
@@ -27,7 +29,13 @@ async def main() -> None:
     cluster = AsyncIOMotorClient(host="localhost", port=27017)
     db = cluster.gamedb
     dp = Dispatcher()
-    dp.include_routers(router, navigation_router, game_router, yt_router, points_router)
+    dp.include_routers(router,
+                       navigation_router,
+                       game_router,
+                       yt_router,
+                       points_router,
+                       time_router,
+                       insta_router)
     await dp.start_polling(bot, db=db)
 
 
