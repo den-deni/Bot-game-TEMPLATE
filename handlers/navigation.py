@@ -112,3 +112,13 @@ async def get_support(call: CallbackQuery):
                                       )
                                     )
     
+@navigation_router.callback_query(F.data == 'menu')
+async def get_main_menu(call: CallbackQuery):
+    await call.message.answer(text="'__'", reply_markup=builder_keyboard(
+        text=["Профіль👤", "🎮", "🤖", "💎", "Про бота📜"],
+            callback=["profile", "game", "shop", "exchanger", "support"],
+            sizes=2
+    )
+)
+    await call.answer()
+    

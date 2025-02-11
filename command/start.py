@@ -37,10 +37,11 @@ async def get_start(message: Message | CallbackQuery, db: MDB):
                 {"_id": message.from_user.id},
                 {"$inc": {'diamond': 1}}
             )
-            await message.answer(f"{hbold('Привіт, гравцю! 🎉')}\n"
+            username = message.from_user.full_name
+            await message.answer(f"Привіт, {username}! 🎉\n"
                                  f"{hbold('Вітаю тебе! Як перший користувач, ти отримуєш бонус — 1 діамант 💎!')}\n"
                                  f"{hbold('Використовуй його, щоб завантажити свій перший контент або накопичуй більше діамантів, граючи в ігри.')}\n"
-                                 f"{hbold('Починай грати прямо зараз і отримуй ще більше призів! 🚀')}\n"
+                                 f"{hbold('Починай грати прямо зараз і отримуй ще більше 💎! 🚀')}\n"
                                  f"{hbold('Удачі та приємної гри! 🎮')}")
 
     pattern = dict(

@@ -14,13 +14,13 @@ def load_audio(url):
         
 
 def load_video(url):
-      try:
-           yt = YouTube(url=url)
-           video_name = yt.title
-           stream = yt.streams.get_highest_resolution().download(output_path='static/video', filename=f'{video_name}.mp4')
-           return stream
-      except Exception:
-            return f"Зараз завантаження не доступно спробуй пізніше"
+    try:
+        yt = YouTube(url=url)
+        video_name = yt.title
+        stream = yt.streams.get_highest_resolution().download(output_path='static/video', filename=f'{video_name}.mp4')
+        return stream
+    except TimeoutError:
+        return f"Зараз завантаження не доступно спробуй пізніше"
       
 
 def load_insta_pic(prof):
@@ -31,6 +31,3 @@ def load_insta_pic(prof):
             return pic
       except Exception:
             return f"Зараз завантаження не доступно спробуй пізніше"
-      
-# a = load_insta_pic(prof='tumoschuk_officiall')
-# print(a)

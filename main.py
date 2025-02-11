@@ -20,11 +20,13 @@ from handlers.youtube_hanler import yt_router
 from handlers.points_handler import points_router
 from handlers.time_handler import time_router
 from handlers.instagram_handler import insta_router
+from admin.adminhandler import admin_router
 
 
 
 async def main() -> None:
     bot = Bot(token=os.getenv('TOKEN'), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot.my_admins_list = []
     await bot.delete_webhook(drop_pending_updates=True)
     cluster = AsyncIOMotorClient(host="localhost", port=27017)
     db = cluster.gamedb
@@ -35,7 +37,8 @@ async def main() -> None:
                        yt_router,
                        points_router,
                        time_router,
-                       insta_router)
+                       insta_router,
+                       admin_router)
     await dp.start_polling(bot, db=db)
 
 
